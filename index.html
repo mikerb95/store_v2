@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MONOLITH — Atelier Storefront</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['"Bebas Neue"', 'sans-serif'],
+          sans: ['Oswald', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        },
+        colors: {
+          ink: '#0a0a0a',
+          paper: '#fafaf7',
+          chalk: '#f4f2ec',
+          rust: '#c0432a',
+          ash: '#9a958c',
+          line: '#1a1a1a',
+        },
+      },
+    },
+  };
+</script>
+<style>
+  :root {
+    color-scheme: light;
+  }
+  html, body {
+    background: #fafaf7;
+    color: #0a0a0a;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, .display {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.03em;
+    line-height: 0.95;
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .btn {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 500;
+  }
+  .hairline { border-color: #0a0a0a; }
+  ::selection { background: #0a0a0a; color: #fafaf7; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #f4f2ec; }
+  ::-webkit-scrollbar-thumb { background: #0a0a0a; }
+
+  /* placeholder stripes for product imagery */
+  .stripes {
+    background-image: repeating-linear-gradient(135deg, #e8e4dc 0 14px, #ddd7cc 14px 28px);
+  }
+  .stripes-dark {
+    background-image: repeating-linear-gradient(135deg, #1a1a1a 0 14px, #0a0a0a 14px 28px);
+  }
+  .stripes-rust {
+    background-image: repeating-linear-gradient(135deg, #c0432a 0 14px, #a83a23 14px 28px);
+  }
+  .stripes-sand {
+    background-image: repeating-linear-gradient(135deg, #d9cdb6 0 14px, #c8bba0 14px 28px);
+  }
+  .stripes-stone {
+    background-image: repeating-linear-gradient(135deg, #b8b5ad 0 14px, #a8a59c 14px 28px);
+  }
+  .stripes-olive {
+    background-image: repeating-linear-gradient(135deg, #6e6f4f 0 14px, #5d5e42 14px 28px);
+  }
+  .stripes-navy {
+    background-image: repeating-linear-gradient(135deg, #1f2b3e 0 14px, #182234 14px 28px);
+  }
+
+  /* table */
+  .gridline > * + * { border-left: 1px solid #0a0a0a; }
+  .row + .row { border-top: 1px solid #0a0a0a; }
+
+  /* focus ring */
+  input:focus, textarea:focus, select:focus, button:focus-visible {
+    outline: 2px solid #0a0a0a;
+    outline-offset: 2px;
+  }
+
+  /* input reset */
+  input, textarea, select {
+    font-family: 'Oswald', sans-serif;
+    background: transparent;
+    border: none;
+    width: 100%;
+  }
+  input::placeholder, textarea::placeholder {
+    color: #9a958c;
+  }
+
+  /* checkbox */
+  .check {
+    appearance: none;
+    width: 16px; height: 16px;
+    border: 1.5px solid #0a0a0a;
+    background: #fafaf7;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .check:checked { background: #0a0a0a; }
+  .check:checked::after {
+    content: '';
+    position: absolute;
+    left: 3px; top: -1px;
+    width: 6px; height: 11px;
+    border: solid #fafaf7;
+    border-width: 0 1.5px 1.5px 0;
+    transform: rotate(45deg);
+  }
+
+  /* keep transitions snappy */
+  * { transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+  .noise {
+    background-image:
+      radial-gradient(rgba(10,10,10,0.04) 1px, transparent 1px),
+      radial-gradient(rgba(10,10,10,0.03) 1px, transparent 1px);
+    background-size: 4px 4px, 7px 7px;
+    background-position: 0 0, 2px 3px;
+  }
+
+  /* page fade-in — keep finish state visible for html-to-image */
+  @keyframes om-fade-up {
+    0%   { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .om-pagefade {
+    animation: om-fade-up 0.35s cubic-bezier(0.2,0.8,0.2,1) forwards;
+    opacity: 1;
+  }
+
+  /* checkout step open */
+  @keyframes om-step-open {
+    0%   { opacity: 0; transform: translateY(-6px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .om-step-open {
+    animation: om-step-open 0.25s cubic-bezier(0.2,0.8,0.2,1) both;
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/framer-motion@11.0.8/dist/framer-motion.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<script type="text/babel" src="src/data.jsx"></script>
+<script type="text/babel" src="src/icons.jsx"></script>
+<script type="text/babel" src="src/primitives.jsx"></script>
+<script type="text/babel" src="src/storefront.jsx"></script>
+<script type="text/babel" src="src/auth-modal.jsx"></script>
+<script type="text/babel" src="src/error-404.jsx"></script>
+<script type="text/babel" src="src/user-dashboard.jsx"></script>
+<script type="text/babel" src="src/admin-dashboard.jsx"></script>
+<script type="text/babel" src="src/crm.jsx"></script>
+<script type="text/babel" src="src/cms.jsx"></script>
+<script type="text/babel" src="src/products-panel.jsx"></script>
+<script type="text/babel" src="src/settings-panel.jsx"></script>
+<script type="text/babel" src="src/social.jsx"></script>
+<script type="text/babel" src="src/checkout.jsx"></script>
+<script type="text/babel" src="src/order-detail.jsx"></script>
+<script type="text/babel" src="src/app.jsx"></script>
+</body>
+</html>
