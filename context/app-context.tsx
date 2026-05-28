@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useState, useMemo } from 'react'
+import React, { createContext, useContext, useState, useMemo, useEffect } from 'react'
 import { T } from '@/lib/translations'
 import type { Lang } from '@/lib/data'
 import { PRODUCTS } from '@/lib/data'
@@ -38,6 +38,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login')
 
   const cart = useMemo(() => PRODUCTS.slice(0, 2), [])
+
+  // Close modals on hash navigation (same-page anchor scrolls keep React state alive)
+  useEffect(() => {
+    const close = () => { setAuthOpen(false); setCartOpen(false) }
+    window.addEventListener('hashchange', close)
+    return () => window.removeEventListener('hashchange', close)
+  }, [])
 
   const logout = () => setUser(null)
   const openLogin = () => { setAuthMode('login'); setAuthOpen(true) }
