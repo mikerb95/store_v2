@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Activity, Package, Users, Newspaper, Mail, Truck, Settings, ExternalLink, Bell, Calendar, LogOut, ChevronRight } from 'lucide-react'
+import { Activity, Package, Users, Newspaper, Mail, Truck, Settings, ExternalLink, Bell, Calendar, LogOut, ChevronRight, LayoutGrid, Plug } from 'lucide-react'
 import { useApp } from '@/context/app-context'
 import { AdminTopBar } from '@/components/ui/nav'
 import { Logo } from '@/components/ui/nav'
@@ -15,6 +15,8 @@ const ADMIN_NAV = [
   { href: '/admin/crm',       label: 'CRM',        icon: Users },
   { href: '/admin/cms',       label: 'CMS',        icon: Newspaper },
   { href: '/admin/social',    label: 'Social',     icon: Mail },
+  { href: '/admin/content',   label: 'Content',    icon: LayoutGrid },
+  { href: '/admin/channels',  label: 'Channels',   icon: Plug },
   { href: '/admin/orders',    label: 'Orders',     icon: Truck },
   { href: '/admin/settings',  label: 'Settings',   icon: Settings },
 ]

@@ -61,6 +61,7 @@ const STATUS_MAP: Record<string, { en: string; es: string; dot: string }> = {
   cancelled: { en: 'Cancelled', es: 'Cancelado', dot: 'bg-ink/30' },
   returned: { en: 'Returned', es: 'Devuelto', dot: 'bg-ink/30' },
   live: { en: 'Live', es: 'Activo', dot: 'bg-rust' },
+  published: { en: 'Published', es: 'Publicado', dot: 'bg-rust' },
   draft: { en: 'Draft', es: 'Borrador', dot: 'bg-ink/30' },
   scheduled: { en: 'Scheduled', es: 'Programado', dot: 'bg-ink' },
   Active: { en: 'Active', es: 'Activo', dot: 'bg-rust' },

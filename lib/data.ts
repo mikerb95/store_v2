@@ -170,6 +170,82 @@ export const SOCIAL_SYNC_OVERRIDES: Record<string, Record<string, string>> = {
   'M-06': { ig: 'ok', wa: 'ok' },
 }
 
+// ─── Content (published social content ↔ sales) ──────────────────
+export interface ContentPost {
+  id: string
+  channel: 'ig' | 'wa' | 'fb' | 'tiktok'
+  format: string
+  title: { en: string; es: string }
+  product: string | null
+  date: string
+  status: 'published' | 'scheduled' | 'draft'
+  reach: number
+  clicks: number
+  orders: number
+  revenue: number
+  stripe: string
+}
+
+export const CONTENT_POSTS: ContentPost[] = [
+  { id: 'C-118', channel: 'ig', format: 'Reel', title: { en: "Architect's Coat — campaign film", es: 'Abrigo del arquitecto — film de campaña' }, product: 'M-01', date: '2026-05-20', status: 'published', reach: 48210, clicks: 3140, orders: 62, revenue: 76880, stripe: 'stripes-dark' },
+  { id: 'C-117', channel: 'ig', format: 'Feed', title: { en: 'Bone cashmere · close-up', es: 'Cachemir hueso · primer plano' }, product: 'M-03', date: '2026-05-18', status: 'published', reach: 22640, clicks: 1820, orders: 41, revenue: 22140, stripe: 'stripes' },
+  { id: 'C-116', channel: 'fb', format: 'Carousel', title: { en: 'Field Parka — re-issue', es: 'Parka de campo — reedición' }, product: 'M-05', date: '2026-05-16', status: 'published', reach: 18900, clicks: 980, orders: 18, revenue: 17640, stripe: 'stripes-olive' },
+  { id: 'C-115', channel: 'wa', format: 'Broadcast', title: { en: 'VIP early access — Capsule 04', es: 'Acceso VIP — Cápsula 04' }, product: null, date: '2026-05-15', status: 'published', reach: 3840, clicks: 1290, orders: 54, revenue: 38600, stripe: 'stripes-rust' },
+  { id: 'C-114', channel: 'tiktok', format: 'Short', title: { en: 'Cutting room, 15 seconds', es: 'Sala de corte, 15 segundos' }, product: null, date: '2026-05-13', status: 'published', reach: 96400, clicks: 4120, orders: 31, revenue: 14260, stripe: 'stripes-stone' },
+  { id: 'C-113', channel: 'ig', format: 'Story', title: { en: 'Capsule 04 unboxing', es: 'Apertura de la Cápsula 04' }, product: null, date: '2026-05-11', status: 'published', reach: 19880, clicks: 760, orders: 12, revenue: 8200, stripe: 'stripes-navy' },
+  { id: 'C-112', channel: 'ig', format: 'Feed', title: { en: 'Pleated Trouser 04 — restock', es: 'Pantalón plisado 04 — reposición' }, product: 'M-02', date: '2026-05-28', status: 'scheduled', reach: 0, clicks: 0, orders: 0, revenue: 0, stripe: 'stripes-sand' },
+  { id: 'C-111', channel: 'wa', format: 'Broadcast', title: { en: 'Atelier Sundays — appointments', es: 'Domingos de atelier — citas' }, product: null, date: '2026-05-30', status: 'scheduled', reach: 0, clicks: 0, orders: 0, revenue: 0, stripe: 'stripes-stone' },
+  { id: 'C-110', channel: 'fb', format: 'Carousel', title: { en: 'Mason Linen Suit — tailoring', es: 'Traje de lino albañil — sastrería' }, product: 'M-06', date: '2026-06-02', status: 'draft', reach: 0, clicks: 0, orders: 0, revenue: 0, stripe: 'stripes-navy' },
+]
+
+// ─── Marketplace channels (sales + stock centralizer) ─────────────
+export interface Connector {
+  id: string
+  name: string
+  handle?: string
+  status: 'connected' | 'available'
+  health?: 'ok' | 'warn' | 'error'
+  lastSync?: string
+  listed?: number
+  stripe: string
+}
+
+export const CONNECTORS: Connector[] = [
+  { id: 'storefront', name: 'Storefront', handle: 'monolith.studio', status: 'connected', health: 'ok', lastSync: 'live', listed: 12, stripe: 'stripes-dark' },
+  { id: 'ig', name: 'Instagram Shopping', handle: '@monolith.atelier', status: 'connected', health: 'ok', lastSync: '2 min', listed: 12, stripe: 'stripes-rust' },
+  { id: 'wa', name: 'WhatsApp Business', handle: 'MONOLITH Business', status: 'connected', health: 'ok', lastSync: '5 min', listed: 12, stripe: 'stripes-olive' },
+  { id: 'fb', name: 'Facebook Shop', handle: '@monolithatelier', status: 'connected', health: 'warn', lastSync: '3 h', listed: 9, stripe: 'stripes-navy' },
+  { id: 'tiktok', name: 'TikTok Shop', status: 'available', stripe: 'stripes-stone' },
+  { id: 'meli', name: 'MercadoLibre', status: 'available', stripe: 'stripes-sand' },
+  { id: 'amazon', name: 'Amazon', status: 'available', stripe: 'stripes-stone' },
+  { id: 'shopify', name: 'Shopify', status: 'available', stripe: 'stripes' },
+]
+
+export const CHANNEL_SALES = [
+  { id: 'storefront', name: 'Storefront', rev: 312400, orders: 842, share: 65, color: '#0a0a0a' },
+  { id: 'ig', name: 'Instagram Shopping', rev: 62420, orders: 188, share: 13, color: '#c0432a' },
+  { id: 'wa', name: 'WhatsApp', rev: 38600, orders: 142, share: 8, color: '#6e6f4f' },
+  { id: 'fb', name: 'Facebook Shop', rev: 24180, orders: 96, share: 5, color: '#1f2b3e' },
+  { id: 'tiktok', name: 'TikTok Shop', rev: 18420, orders: 74, share: 4, color: '#9a958c' },
+  { id: 'meli', name: 'MercadoLibre', rev: 16100, orders: 88, share: 3, color: '#b8b5ad' },
+  { id: 'amazon', name: 'Amazon', rev: 10220, orders: 51, share: 2, color: '#a8a59c' },
+]
+
+// Listing state per connected channel, keyed by product id.
+// Missing entries fall back to 'ok'. 'unlisted' = not published on that channel.
+export const CHANNEL_LISTINGS: Record<string, Record<string, 'ok' | 'stale' | 'unlisted'>> = {
+  'M-05': { fb: 'stale' },
+  'M-06': { fb: 'unlisted' },
+  'M-08': { ig: 'stale', wa: 'unlisted', fb: 'unlisted' },
+  'M-12': { wa: 'stale', fb: 'unlisted' },
+}
+
+export const SYNC_CHANNELS = [
+  { id: 'ig', label: 'IG' },
+  { id: 'wa', label: 'WA' },
+  { id: 'fb', label: 'FB' },
+]
+
 export function synthesizeOrder(orderId: string) {
   const existing = ORDERS.find((o) => o.id === orderId)
   if (!existing) return null
