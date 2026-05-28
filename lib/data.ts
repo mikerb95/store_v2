@@ -226,9 +226,9 @@ export const CHANNEL_SALES = [
   { id: 'ig', name: 'Instagram Shopping', rev: 62420, orders: 188, share: 13, color: '#c0432a' },
   { id: 'wa', name: 'WhatsApp', rev: 38600, orders: 142, share: 8, color: '#6e6f4f' },
   { id: 'fb', name: 'Facebook Shop', rev: 24180, orders: 96, share: 5, color: '#1f2b3e' },
-  { id: 'tiktok', name: 'TikTok Shop', rev: 18420, orders: 74, share: 4, color: '#9a958c' },
-  { id: 'meli', name: 'MercadoLibre', rev: 16100, orders: 88, share: 3, color: '#b8b5ad' },
-  { id: 'amazon', name: 'Amazon', rev: 10220, orders: 51, share: 2, color: '#a8a59c' },
+  { id: 'tiktok', name: 'TikTok Shop', rev: 18420, orders: 74, share: 4, color: '#8a5a44' },
+  { id: 'meli', name: 'MercadoLibre', rev: 16100, orders: 88, share: 3, color: '#b89020' },
+  { id: 'amazon', name: 'Amazon', rev: 10220, orders: 51, share: 2, color: '#4a6b6e' },
 ]
 
 // Listing state per connected channel, keyed by product id.
