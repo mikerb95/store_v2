@@ -78,7 +78,12 @@ function Sales() {
 
   // donut geometry
   const R = 52, C = 2 * Math.PI * R
-  let offset = 0
+  const segments = CHANNEL_SALES.reduce<{ c: typeof CHANNEL_SALES[number]; dash: number; offset: number }[]>((acc, c) => {
+    const dash = (c.rev / total) * C
+    const offset = acc.length ? acc[acc.length - 1].offset + acc[acc.length - 1].dash : 0
+    acc.push({ c, dash, offset })
+    return acc
+  }, [])
 
   return (
     <div className="px-6 md:px-12 py-8">
@@ -90,21 +95,15 @@ function Sales() {
             <div className="mono text-[10px] uppercase tracking-[0.2em] text-ink/50 mt-1">{totalOrders.toLocaleString()} {ch.sales.orders}</div>
             <div className="flex justify-center my-6">
               <svg viewBox="0 0 140 140" className="w-44 h-44 -rotate-90">
-                {CHANNEL_SALES.map((c) => {
-                  const frac = c.rev / total
-                  const dash = frac * C
-                  const seg = (
-                    <circle
-                      key={c.id}
-                      cx="70" cy="70" r={R}
-                      fill="none" stroke={c.color} strokeWidth="16"
-                      strokeDasharray={`${dash} ${C - dash}`}
-                      strokeDashoffset={-offset}
-                    />
-                  )
-                  offset += dash
-                  return seg
-                })}
+                {segments.map(({ c, dash, offset }) => (
+                  <circle
+                    key={c.id}
+                    cx="70" cy="70" r={R}
+                    fill="none" stroke={c.color} strokeWidth="16"
+                    strokeDasharray={`${dash} ${C - dash}`}
+                    strokeDashoffset={-offset}
+                  />
+                ))}
               </svg>
             </div>
           </div>
@@ -113,7 +112,7 @@ function Sales() {
         <div className="col-span-12 lg:col-span-8">
           <div className="mono text-[10px] uppercase tracking-[0.25em] text-ink/60 mb-3">{ch.sales.title}</div>
           <div className="border border-ink">
-            {CHANNEL_SALES.map((c, i) => (
+            {CHANNEL_SALES.map((c) => (
               <div key={c.id} className="grid grid-cols-12 items-center gap-3 px-4 py-3.5 border-b border-ink/15 last:border-b-0">
                 <div className="col-span-3 flex items-center gap-2 min-w-0">
                   <span className="w-2.5 h-2.5 shrink-0" style={{ background: c.color }} />

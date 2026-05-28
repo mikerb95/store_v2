@@ -101,13 +101,8 @@ function ContentPerformance() {
   )
 }
 
-function ContentCalendar() {
-  const { t, lang } = useApp()
-  const c = t.content
-  const upcoming = CONTENT_POSTS.filter((p) => p.status !== 'published').sort((a, b) => a.date.localeCompare(b.date))
-  const published = CONTENT_POSTS.filter((p) => p.status === 'published').sort((a, b) => b.date.localeCompare(a.date))
-
-  const Column = ({ title, items }: { title: string; items: ContentPost[] }) => (
+function CalendarColumn({ title, items, lang }: { title: string; items: ContentPost[]; lang: string }) {
+  return (
     <div className="col-span-12 lg:col-span-6">
       <div className="mono text-[10px] uppercase tracking-[0.25em] text-ink/60 mb-3">{title}</div>
       <div className="space-y-3">
@@ -128,12 +123,19 @@ function ContentCalendar() {
       </div>
     </div>
   )
+}
+
+function ContentCalendar() {
+  const { t, lang } = useApp()
+  const c = t.content
+  const upcoming = CONTENT_POSTS.filter((p) => p.status !== 'published').sort((a, b) => a.date.localeCompare(b.date))
+  const published = CONTENT_POSTS.filter((p) => p.status === 'published').sort((a, b) => b.date.localeCompare(a.date))
 
   return (
     <div className="px-6 md:px-12 py-8">
       <div className="grid grid-cols-12 gap-6">
-        <Column title={c.pipeline} items={upcoming} />
-        <Column title={c.filters.published} items={published} />
+        <CalendarColumn title={c.pipeline} items={upcoming} lang={lang} />
+        <CalendarColumn title={c.filters.published} items={published} lang={lang} />
       </div>
     </div>
   )
