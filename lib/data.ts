@@ -1,5 +1,22 @@
 export type Lang = 'en' | 'es'
 
+export interface Client {
+  name: string; contact: string; loc: string; status: string; value: number; last: string
+}
+
+export interface Supplier {
+  name: string; contact: string; loc: string; status: string; cat: string; lead: string
+}
+
+export interface Banner {
+  id: string; title: { en: string; es: string }; body: { en: string; es: string }
+  cta: { en: string; es: string }; status: string; schedule: string; stripe?: string
+}
+
+export interface CMSPage {
+  id: string; title: { en: string; es: string }; status: string; updated: string; slug: string
+}
+
 export interface Product {
   id: string
   name: { en: string; es: string }
