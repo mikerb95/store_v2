@@ -93,23 +93,23 @@ export const BANNERS = [
   { id: 'B-03', title: { en: 'Atelier Hours', es: 'Horario de atelier' }, body: { en: 'Lisboa flagship now open Sundays.', es: 'Tienda insignia de Lisboa abierta los domingos.' }, cta: { en: 'Visit', es: 'Visitar' }, status: 'draft', schedule: '—' },
 ]
 
-export const PAGES_CMS = [
-  { id: 'P-01', title: { en: 'About the atelier', es: 'Sobre el atelier' }, status: 'live', updated: '2026-04-19' },
-  { id: 'P-02', title: { en: 'Press & coverage', es: 'Prensa' }, status: 'live', updated: '2026-03-02' },
-  { id: 'P-03', title: { en: 'Sustainability', es: 'Sostenibilidad' }, status: 'draft', updated: '2026-05-09' },
-  { id: 'P-04', title: { en: 'Sizing & fit', es: 'Tallas y corte' }, status: 'live', updated: '2026-02-14' },
+export const PAGES_CMS: CMSPage[] = [
+  { id: 'P-01', title: { en: 'About the atelier', es: 'Sobre el atelier' }, status: 'live', updated: '2026-04-19', slug: '/about' },
+  { id: 'P-02', title: { en: 'Press & coverage', es: 'Prensa' }, status: 'live', updated: '2026-03-02', slug: '/press' },
+  { id: 'P-03', title: { en: 'Sustainability', es: 'Sostenibilidad' }, status: 'draft', updated: '2026-05-09', slug: '/sustainability' },
+  { id: 'P-04', title: { en: 'Sizing & fit', es: 'Tallas y corte' }, status: 'live', updated: '2026-02-14', slug: '/sizing' },
 ]
 
-export const POLICIES = [
-  { id: 'L-01', title: { en: 'Shipping & returns', es: 'Envíos y devoluciones' }, status: 'live', updated: '2026-05-01' },
-  { id: 'L-02', title: { en: 'Privacy', es: 'Privacidad' }, status: 'live', updated: '2026-04-22' },
-  { id: 'L-03', title: { en: 'Terms of service', es: 'Términos del servicio' }, status: 'live', updated: '2026-04-22' },
-  { id: 'L-04', title: { en: 'Cookies', es: 'Cookies' }, status: 'draft', updated: '2026-05-18' },
+export const POLICIES: CMSPage[] = [
+  { id: 'L-01', title: { en: 'Shipping & returns', es: 'Envíos y devoluciones' }, status: 'live', updated: '2026-05-01', slug: '/shipping' },
+  { id: 'L-02', title: { en: 'Privacy', es: 'Privacidad' }, status: 'live', updated: '2026-04-22', slug: '/privacy' },
+  { id: 'L-03', title: { en: 'Terms of service', es: 'Términos del servicio' }, status: 'live', updated: '2026-04-22', slug: '/terms' },
+  { id: 'L-04', title: { en: 'Cookies', es: 'Cookies' }, status: 'draft', updated: '2026-05-18', slug: '/cookies' },
 ]
 
-export const NEWSLETTERS = [
-  { id: 'N-01', title: { en: 'Issue No. 12 — On weight & drape', es: 'Número 12 — Peso y caída' }, status: 'live', updated: '2026-05-04' },
-  { id: 'N-02', title: { en: 'Issue No. 13 — The Field Parka', es: 'Número 13 — La parka de campo' }, status: 'scheduled', updated: '2026-06-02' },
+export const NEWSLETTERS: CMSPage[] = [
+  { id: 'N-01', title: { en: 'Issue No. 12 — On weight & drape', es: 'Número 12 — Peso y caída' }, status: 'live', updated: '2026-05-04', slug: '/newsletter/12' },
+  { id: 'N-02', title: { en: 'Issue No. 13 — The Field Parka', es: 'Número 13 — La parka de campo' }, status: 'scheduled', updated: '2026-06-02', slug: '/newsletter/13' },
 ]
 
 export const PAYMENT_METHODS = [

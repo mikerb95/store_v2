@@ -16,12 +16,19 @@ function ConnectedAccount({ ch, handle }: { ch: string; handle: string }) {
   )
 }
 
+const SOCIAL_KPI_ROWS = [
+  { k: 'IG Reach 30d', v: '128.4k', trend: '+14.2%', data: [3.2, 3.8, 4.4, 4.1, 5.0, 5.6, 5.2, 6.0, 6.4, 7.0, 7.6, 7.2, 8.0, 8.4, 9.0, 8.8, 9.6, 10.2, 10.0, 11.0, 11.6, 12.0, 12.4, 12.8, 13.0, 13.6, 14.2, 14.0, 15.0, 15.6] },
+  { k: 'IG Engagement', v: '9.4%', trend: '+1.8%', data: [6,7,8,7,9,8,9,10,9,10,10,11,10,11,12,11,10,12,13,12,11,12,13,14,13,14,14,15,15,14] },
+  { k: 'WA Open rate', v: '86.2%', trend: '+2.4%', data: [70,72,74,76,75,77,78,79,80,81,82,83,82,83,84,85,84,85,86,87,86,87,86,87,88,87,86,87,86,87] },
+  { k: 'Attribution €', v: '€62.4k', trend: '+18.6%', data: [20,22,24,23,26,28,27,30,32,34,36,35,38,40,42,41,44,46,48,47,50,52,54,56,58,60,62,61,63,62] },
+]
+
 function SocialOverview() {
   const { lang } = useApp()
   return (
     <div className="px-6 md:px-12 py-8">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-ink mb-8">
-        {SOCIAL_KPIS.map((k, i) => (
+        {SOCIAL_KPI_ROWS.map((k, i) => (
           <div key={k.k} className={`p-5 ${i > 0 ? 'border-l border-ink' : ''}`}>
             <div className="mono text-[10px] uppercase tracking-[0.25em] text-ink/60">{k.k}</div>
             <div className="display text-4xl mt-3">{k.v}</div>
@@ -37,10 +44,10 @@ function SocialOverview() {
           <div className="border border-ink divide-y divide-ink/15">
             {SOCIAL_POSTS.slice(0, 5).map((p, i) => (
               <div key={i} className="grid grid-cols-12 items-center px-5 py-4">
-                <div className="col-span-1 mono text-[10px] text-ink/50">{p.ch.toUpperCase()}</div>
-                <div className="col-span-8 text-sm text-ink/80 truncate">{p.caption[lang as 'en' | 'es']}</div>
-                <div className="col-span-2 mono text-[10px] text-ink/60 text-right">{p.likes} ♥</div>
-                <div className="col-span-1 mono text-[9px] text-ink/40 text-right">{p.date}</div>
+                <div className="col-span-1 mono text-[10px] text-ink/50">{p.channel.toUpperCase()}</div>
+                <div className="col-span-8 text-sm text-ink/80 truncate">{p.title[lang as 'en' | 'es']}</div>
+                <div className="col-span-2 mono text-[10px] text-ink/60 text-right">{p.reach ? `${p.reach.toLocaleString()} ♥` : '—'}</div>
+                <div className="col-span-1 mono text-[9px] text-ink/40 text-right">{p.when.split('·')[0].trim()}</div>
               </div>
             ))}
           </div>
@@ -51,10 +58,10 @@ function SocialOverview() {
             {SOCIAL_FUNNEL.map((f, i) => (
               <div key={i} className="px-5 py-3">
                 <div className="flex items-center justify-between mb-1">
-                  <div className="mono text-[10px] uppercase tracking-[0.2em] text-ink/70">{f.stage}</div>
-                  <div className="mono text-[10px] text-ink/60">{f.value.toLocaleString()}</div>
+                  <div className="mono text-[10px] uppercase tracking-[0.2em] text-ink/70">{f.l}</div>
+                  <div className="mono text-[10px] text-ink/60">{f.v.toLocaleString()}</div>
                 </div>
-                <div className="h-1 bg-ink/10"><div className="h-full bg-rust" style={{ width: `${f.pct}%` }} /></div>
+                <div className="h-1 bg-ink/10"><div className="h-full bg-rust" style={{ width: `${f.w}%` }} /></div>
               </div>
             ))}
           </div>
@@ -77,12 +84,12 @@ function SocialInbox() {
         {SOCIAL_THREADS.map((t, i) => (
           <button key={i} onClick={() => setSel(i)} className={`w-full text-left px-5 py-4 border-b border-ink/15 ${sel === i ? 'bg-chalk' : 'hover:bg-chalk'}`}>
             <div className="flex items-center gap-2 mb-1">
-              <span className="mono text-[9px] uppercase tracking-[0.2em] text-ink/50">{t.ch.toUpperCase()}</span>
-              {t.unread && <span className="w-1.5 h-1.5 bg-rust" />}
+              <span className="mono text-[9px] uppercase tracking-[0.2em] text-ink/50">{t.channel.toUpperCase()}</span>
+              {t.unread > 0 && <span className="w-1.5 h-1.5 bg-rust" />}
               <span className="ml-auto mono text-[9px] text-ink/40">{t.time}</span>
             </div>
-            <div className="text-sm font-medium">{t.from}</div>
-            <div className="text-sm text-ink/60 truncate">{t.preview}</div>
+            <div className="text-sm font-medium">{t.name}</div>
+            <div className="text-sm text-ink/60 truncate">{t.last}</div>
           </button>
         ))}
       </div>
@@ -90,16 +97,16 @@ function SocialInbox() {
         {thread && (
           <>
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-ink">
-              <div className="w-10 h-10 border border-ink stripes-stone" />
+              <div className={`w-10 h-10 border border-ink ${thread.avatar}`} />
               <div>
-                <div className="display text-2xl">{thread.from}</div>
-                <div className="mono text-[10px] uppercase tracking-[0.2em] text-ink/60">{thread.ch.toUpperCase()} · {thread.time}</div>
+                <div className="display text-2xl">{thread.name}</div>
+                <div className="mono text-[10px] uppercase tracking-[0.2em] text-ink/60">{thread.channel.toUpperCase()} · {thread.time}</div>
               </div>
             </div>
             <div className="space-y-4 mb-8">
               {thread.messages.map((m, i) => (
-                <div key={i} className={`flex ${m.mine ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-md p-4 text-sm ${m.mine ? 'bg-ink text-paper' : 'border border-ink'}`}>
+                <div key={i} className={`flex ${m.who === 'us' ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`max-w-md p-4 text-sm ${m.who === 'us' ? 'bg-ink text-paper' : 'border border-ink'}`}>
                     {m.text}
                   </div>
                 </div>
@@ -133,18 +140,20 @@ function SocialSync() {
   )
 }
 
+const STUDIO_STRIPES = ['stripes-dark', 'stripes-rust', 'stripes-sand', 'stripes-stone']
+
 function SocialStudio() {
   const { lang } = useApp()
   return (
     <div className="px-6 md:px-12 py-8">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         {SOCIAL_TEMPLATES.map((tpl, i) => (
-          <div key={i} className="border border-ink">
-            <div className={`${tpl.stripe} aspect-square relative`}>
+          <div key={tpl.id} className="border border-ink">
+            <div className={`${STUDIO_STRIPES[i % STUDIO_STRIPES.length]} aspect-square relative`}>
               <div className="absolute inset-0 noise opacity-40" />
             </div>
             <div className="p-3 border-t border-ink">
-              <div className="mono text-[10px] uppercase tracking-[0.2em] text-ink/60">{tpl.name}</div>
+              <div className="mono text-[10px] uppercase tracking-[0.2em] text-ink/60">{tpl.l[lang as 'en' | 'es']}</div>
               <Btn kind="outline" size="sm" full className="mt-2">{lang === 'es' ? 'Usar' : 'Use'}</Btn>
             </div>
           </div>
