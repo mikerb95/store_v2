@@ -65,7 +65,7 @@ function BannerEditor() {
         <div className="flex gap-2 pt-2">
           <Btn kind="ghost" icon={Eye}>{t.cms.preview}</Btn>
           <div className="flex-1" />
-          <Btn kind="solid" icon={Save}>{t.cms.save}</Btn>
+          <Btn kind="solid" icon={Save}>{t.cms.publish}</Btn>
         </div>
       </div>
 
