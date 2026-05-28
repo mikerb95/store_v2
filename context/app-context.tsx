@@ -14,7 +14,7 @@ interface User {
 interface AppContextValue {
   lang: Lang
   setLang: (l: Lang) => void
-  t: typeof T.en
+  t: typeof T[Lang]
   user: User | null
   setUser: (u: User | null) => void
   logout: () => void
